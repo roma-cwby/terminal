@@ -21,6 +21,12 @@ p {
   margin: 0;
 }
 
+button {
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 .screen-layer {
   position: absolute;
   transform: translate(-50%);
@@ -52,7 +58,7 @@ p {
   width: 6px;
 }
 
-.input p {
+.input ul {
   font-size: larger;
   color: green;
 }
@@ -66,7 +72,7 @@ p {
   height: 12px;
   width: 6px;
 
-  animation: cursor 500ms linear;
+  animation: cursor 800ms linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 
@@ -263,52 +269,49 @@ p {
   }
 }
 
+/* ==================on-off====================== */
 
-
-/* .keyboard {
-    position: relative;
-    top: 615px;
-    left: 50%;
-
-    transform: translate(-50%);
-
-    padding: 10px 15px 15px 15px;
-
-    width: 700px;
-    height: 300px;
-
-    background-color: teal;
-    border-radius: 5px;
+.On {
+  animation: on 1000ms linear;
 }
 
-.key-box {
-    display: flex;
-
-    height: 100%;
+.Off {
+  animation: off 1000ms linear;
+  animation-fill-mode: forwards;
 }
 
-.button {
-    position: relative;
-
-    padding: 7px 9px 11px 9px;
-
-    height: 50px;
-    width: 50px;
-
-    border-radius: 4px;
-    background-color: aqua;
-    cursor: pointer;
+@keyframes on {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.button p{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@keyframes off {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
-    width: 100%;
-    height: 100%;
+/* ======================================== */
+.hidden {
+  display: none;
+}
 
-    border-radius: 2px;
-    background-color: red;
-    box-shadow: 3px 2px 10px 1px rgba(0, 0, 0, 0.5);
-} */
+li {
+  padding-left: 10px;
+}
+
+.item--current {
+  width: 50%;
+
+  transition: background-color 300ms linear, color 300ms linear;
+
+  background-color: green;
+  color: white;
+}
