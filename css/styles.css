@@ -298,6 +298,22 @@ button {
   }
 }
 
+/* ==================logo======================= */
+
+.logo {
+  text-align: center;
+}
+
+.logo-title {
+  padding: 0;
+  margin: 0;
+
+  font-size: 50px;
+  text-transform: uppercase;
+
+  color: green;
+}
+
 /* ======================================== */
 .hidden {
   display: none;

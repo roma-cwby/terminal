@@ -8,6 +8,12 @@ document.querySelector(".red").onclick = () => {
     document.querySelector(".next-list").classList.add("Off");
     document.querySelector(".last-list").classList.add("Off");
 
+    document.querySelector(".first-logo").classList.add("hidden");
+    document.querySelector(".second-logo").classList.remove("hidden");
+    document.querySelector(".second-logo").classList.remove("Off");
+    document.querySelector(".logo").classList.remove("On");
+    document.querySelector(".logo").classList.remove("Off");
+
     currentArr = firstMenuArr;
 
     setTimeout(() => {
@@ -21,11 +27,32 @@ document.querySelector(".red").onclick = () => {
     }, 1000);
   }
 };
-document.querySelector(".green").onclick = () => {
-  if (!document.querySelector(".green").classList.contains("on")) {
-    document.querySelector(".red").classList.remove("on");
-    document.querySelector(".green").classList.add("on");
 
+document.querySelector(".green").onclick = () => {
+  document.querySelector(".red").disabled = true;
+
+  document.querySelector(".red").classList.remove("on");
+  document.querySelector(".green").classList.add("on");
+
+  document.querySelector(".logo").classList.remove("hidden");
+  document.querySelector(".logo").classList.add("On");
+  setTimeout(() => {
+    document.querySelector(".second-logo").classList.add("Off");
+    setTimeout(() => {
+      document.querySelector(".second-logo").classList.add("hidden");
+      document.querySelector(".first-logo").classList.remove("hidden");
+      document.querySelector(".first-logo").classList.add("On");
+      setTimeout(() => {
+        document.querySelector(".logo").classList.add("Off");
+        setTimeout(() => {
+          document.querySelector(".logo").classList.add("hidden");
+          document.querySelector(".red").disabled = false;
+        }, 1500);
+      }, 1500);
+    }, 1500);
+  }, 1500);
+
+  setTimeout(() => {
     document.querySelector(".list").classList.remove("Off");
     document.querySelector(".second-list").classList.remove("Off");
     document.querySelector(".next-list").classList.remove("Off");
@@ -33,7 +60,7 @@ document.querySelector(".green").onclick = () => {
 
     document.querySelector(".list").classList.remove("hidden");
     document.querySelector(".list").classList.add("On");
-  }
+  }, 6100);
 };
 
 //=========================================================
