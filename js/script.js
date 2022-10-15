@@ -1,99 +1,110 @@
-//=========================================================
-//=========================================================
+import tmp from "./tmp.js";
 
-const menuArr = [
-  document.querySelector(".list"),
-  document.querySelector(".second-list"),
-  document.querySelector(".next-list"),
-  document.querySelector(".last-list"),
-];
-
-const firstMenuArr = [
-  document.querySelector(".item"),
-  document.querySelector(".item1"),
-  document.querySelector(".item2"),
-];
-const secondMenuArr = [
-  document.querySelector(".item3"),
-  document.querySelector(".item4"),
-  document.querySelector(".item5"),
-];
-const nextMenuArr = [
-  document.querySelector(".item6"),
-  document.querySelector(".item7"),
-  document.querySelector(".item8"),
-];
-const lastMenuArr = [
-  document.querySelector(".item9"),
-  document.querySelector(".item10"),
-  document.querySelector(".item11"),
-];
-
-let currentArr = firstMenuArr;
-
-document.onkeydown = (event) => {
-  if (event.key === "ArrowDown") down(currentArr);
-  else if (event.key === "ArrowUp") up(currentArr);
-  else if (event.key === "Enter") enter(currentArr);
-  else if (event.key === "Backspace") backSpace();
+const refs = {
+  onBtn: document.querySelector(".green"),
+  offBtn: document.querySelector(".red"),
+  input: document.querySelector(".input"),
 };
 
-function down(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].classList.contains("item--current")) {
-      if (i === arr.length - 1) {
-        arr[i].classList.remove("item--current");
-        arr[0].classList.add("item--current");
+refs.onBtn.addEventListener("click", onOn);
+refs.offBtn.addEventListener("click", onOff);
+
+function onOn(e) {
+  refs.onBtn.classList.add("on");
+  refs.offBtn.classList.remove("on");
+  refs.offBtn.disabled = true;
+
+  logos();
+}
+
+function onOff() {
+  refs.onBtn.classList.remove("on");
+  refs.onBtn.disabled = true;
+  refs.offBtn.classList.add("on");
+  refs.input.firstChild.classList.add("off");
+
+  setTimeout(() => {
+    refs.input.innerHTML = "";
+    refs.onBtn.disabled = false;
+  }, 1000);
+}
+
+function logos() {
+  refs.input.innerHTML = tmp.firstLogo;
+  setTimeout(() => {
+    refs.input.innerHTML = tmp.secondLogo;
+  }, 3000);
+  setTimeout(() => {
+    setMenu(tmp.firstMenu);
+    refs.offBtn.disabled = false;
+  }, 6000);
+}
+
+function setMenu(tmp) {
+  refs.input.innerHTML = tmp;
+  document.onkeydown = keys;
+}
+
+function keys(e) {
+  const elem = refs.input.firstChild.children;
+  if (e.key === "ArrowDown") downKey(elem);
+  else if (e.key === "ArrowUp") upKey(elem);
+  else if (e.key === "Enter") enterKey(elem);
+  else if (e.key === "Backspace") backKey();
+}
+
+function downKey(elem) {
+  for (let i = 0; i < elem.length; i++) {
+    if (elem[i].classList.contains("item--current")) {
+      if (i === elem.length - 1) {
+        elem[i].classList.remove("item--current");
+        elem[0].classList.add("item--current");
       } else {
-        arr[i].classList.remove("item--current");
-        arr[i + 1].classList.add("item--current");
+        elem[i].classList.remove("item--current");
+        elem[i + 1].classList.add("item--current");
       }
       break;
     }
   }
 }
 
-function up(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].classList.contains("item--current")) {
+function upKey(elem) {
+  for (let i = 0; i < elem.length; i++) {
+    if (elem[i].classList.contains("item--current")) {
       if (i === 0) {
-        arr[i].classList.remove("item--current");
-        arr[arr.length - 1].classList.add("item--current");
+        elem[i].classList.remove("item--current");
+        elem[elem.length - 1].classList.add("item--current");
       } else {
-        arr[i].classList.remove("item--current");
-        arr[i - 1].classList.add("item--current");
+        elem[i].classList.remove("item--current");
+        elem[i - 1].classList.add("item--current");
       }
       break;
     }
   }
 }
 
-function enter(arr) {
-  document.querySelector(".list").classList.remove("On");
-  for (let i = 0; i < arr.length; i++) {
-    if (arr === firstMenuArr && arr[i].classList.contains("item--current")) {
-      if (i === 0) {
-        menuArr[0].classList.add("hidden");
-        menuArr[i + 1].classList.remove("hidden");
-        currentArr = secondMenuArr;
-      } else if (i === 1) {
-        menuArr[0].classList.add("hidden");
-        menuArr[i + 1].classList.remove("hidden");
-        currentArr = nextMenuArr;
-      } else if (i === 2) {
-        menuArr[0].classList.add("hidden");
-        menuArr[i + 1].classList.remove("hidden");
-        currentArr = lastMenuArr;
+function enterKey(elem) {
+  for (let i = 0; i < elem.length; i++) {
+    if (
+      elem[i].classList.contains("item--current") &&
+      refs.input.firstChild.classList.contains("list")
+    ) {
+      switch (i) {
+        case 0:
+          setMenu(tmp.secondMenu);
+          break;
+        case 1:
+          setMenu(tmp.nextMenu);
+          break;
+        case 2:
+          setMenu(tmp.lastMenu);
+          break;
       }
-      break;
     }
   }
 }
 
-function backSpace() {
-  for (let i = 1; i < menuArr.length; i++) {
-    menuArr[i].classList.add("hidden");
-  }
-  menuArr[0].classList.remove("hidden");
-  currentArr = firstMenuArr;
+function backKey() {
+  if (refs.input.firstChild.classList.contains("list")) return;
+  setMenu(tmp.firstMenu);
 }

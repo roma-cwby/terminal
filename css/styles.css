@@ -271,22 +271,24 @@ button {
 
 /* ==================on-off====================== */
 
-.On {
-  animation: on 1000ms linear;
-}
-
-.Off {
-  animation: off 1000ms linear;
-  animation-fill-mode: forwards;
-}
-
 @keyframes on {
   0% {
     opacity: 0;
   }
-  100% {
+  30% {
     opacity: 1;
   }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.off {
+  animation: off 1s linear;
+  animation-fill-mode: forwards;
 }
 
 @keyframes off {
@@ -302,6 +304,8 @@ button {
 
 .logo {
   text-align: center;
+  animation: on 3s linear;
+  animation-fill-mode: forwards;
 }
 
 .logo-title {
